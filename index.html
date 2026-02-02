@@ -850,10 +850,6 @@
             <div class="card">
                 <div class="card-title">
                     <span>📰 Market News & Intelligence</span>
-                    <div class="view-toggle">
-                        <button class="view-btn active" onclick="setView('expanded')">Expanded</button>
-                        <button class="view-btn" onclick="setView('compact')">Compact</button>
-                    </div>
                 </div>
                 <div class="news-scroll-container" id="newsFeed">
                     <!-- Populated by JS -->
@@ -914,14 +910,14 @@
                 id: 1,
                 title: 'Emaar launches AED 5 billion waterfront project in Dubai Creek Harbour',
                 source: 'Gulf News',
-                sourceUrl: 'https://gulfnews.com/business/property',
+                sourceUrl: 'https://gulfnews.com/business/property/',
                 date: '2 hours ago',
                 summary: 'Emaar Properties has unveiled plans for a new luxury waterfront development featuring 1,200 units with panoramic views of Dubai Creek Tower. The project spans 2.5 million sqft with prices starting from AED 1.8M.',
                 aiSummary: 'Major launch from market leader. Direct competition to One Development\'s coastal positioning. Watch for pricing strategy in 2BR segment. Consider timing counter-launch.',
                 sentiment: 'neutral',
                 tags: ['emaar', 'launch', 'luxury', 'waterfront'],
                 competitor: 'emaar',
-                fullArticleUrl: 'https://gulfnews.com/business/property/emaar-launches-new-creek-harbour-project',
+                fullArticleUrl: 'https://gulfnews.com/business/property/',
                 relatedLinks: [
                     { title: 'Dubai Creek Harbour masterplan', url: 'https://www.emaar.com/creek-harbour' },
                     { title: 'Emaar Q4 2025 results', url: 'https://www.emaar.com/investors' }
@@ -981,14 +977,14 @@
                 id: 5,
                 title: 'Sobha Hartland Phase 3 sells out in 48 hours',
                 source: 'Gulf News',
-                sourceUrl: 'https://gulfnews.com/business/property',
+                sourceUrl: 'https://gulfnews.com/business/property/',
                 date: '8 hours ago',
                 summary: 'Sobha Realty reports complete sellout of 500 units in latest phase, with average price of AED 2,800 per sqft. Strong demand from end-users and investors.',
                 aiSummary: 'Strong competitor performance. Pricing benchmark at 2,800/sqft for premium MBR City location. Launch timing critical. Monitor their marketing channels.',
                 sentiment: 'neutral',
                 tags: ['sobha', 'launch', 'sellout'],
                 competitor: 'sobha',
-                fullArticleUrl: 'https://gulfnews.com/business/property/sobha-hartland-phase-3-sellout',
+                fullArticleUrl: 'https://gulfnews.com/business/property/',
                 relatedLinks: [
                     { title: 'Sobha Hartland masterplan', url: 'https://www.sobharealty.com/sobha-hartland' }
                 ]
@@ -1064,20 +1060,13 @@
 
         let currentFilter = 'all';
         let selectedCompetitor = null;
-        let viewMode = 'expanded';
+        // Always expanded view
 
         function init() {
             renderCompetitors();
             renderNews();
             renderMarketTrends();
             renderLaunches();
-        }
-
-        function setView(mode) {
-            viewMode = mode;
-            document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-            renderNews();
         }
 
         function renderCompetitors() {
@@ -1175,12 +1164,10 @@
                     </div>
                     <div class="news-title" onclick="openArticle(${n.id})">${n.title}</div>
                     <div class="news-summary">${n.summary}</div>
-                    ${viewMode === 'expanded' ? `
-                        <div class="news-ai-summary">
-                            <div class="news-ai-label">🤖 AI Strategic Analysis</div>
-                            ${n.aiSummary}
-                        </div>
-                    ` : ''}
+                    <div class="news-ai-summary">
+                        <div class="news-ai-label">🤖 AI Strategic Analysis</div>
+                        ${n.aiSummary}
+                    </div>
                     <div class="news-footer">
                         <div class="news-tags">
                             ${n.tags.map(t => `<span class="news-tag ${COMPETITORS.some(c => c.id === t) ? 'competitor' : ''}" onclick="handleTagClick('${t}')">${t}</span>`).join('')}
